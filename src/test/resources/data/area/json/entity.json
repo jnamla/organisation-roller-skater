@@ -1,0 +1,23 @@
+{
+    "city": {
+        "code": "BOG",
+        "id": 2,
+        "name": "Santa fé de Bogotá",
+        "state": {
+            "code": "CUND",
+            "country": {
+                "code": "COL",
+                "id": 1,
+                "name": "Colombia"
+            },
+            "id": 1,
+            "name": "Cundinamarca"
+        }
+    },
+    "genericArea": {
+        "description": "Encargados de el area contable y de recursos.",
+        "id": 1,
+        "name": "Administración"
+    },
+    "id": 1
+}

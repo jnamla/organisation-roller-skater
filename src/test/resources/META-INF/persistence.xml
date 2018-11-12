@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="organisationTestPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <class>org.myorg.organisation.domain.Area</class>
+    <class>org.myorg.organisation.domain.GenericArea</class>
+    <class>org.myorg.organisation.domain.City</class>
+    <class>org.myorg.organisation.domain.State</class>
+    <class>org.myorg.organisation.domain.Country</class>
+    <class>org.myorg.organisation.domain.Personnel</class>
+    
+    <class>org.myorg.organisation.domain.service.PersonnelManager</class>
+    <class>org.myorg.organisation.domain.service.AreaManager</class>
+    <class>org.myorg.organisation.domain.service.GenericAreaManager</class>
+    
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/organisation_test"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="mySQLS3rv3r-dev"/>
+    </properties>
+  </persistence-unit>
+</persistence>
