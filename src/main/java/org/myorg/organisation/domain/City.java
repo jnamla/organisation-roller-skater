@@ -13,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -49,7 +47,7 @@ public class City implements Serializable {
     
     @JoinColumn(name = "state_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private StateStructure state;
+    private State state;
 
     public City() {
     }
@@ -88,11 +86,11 @@ public class City implements Serializable {
         this.code = code;
     }
 
-    public StateStructure getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(StateStructure state) {
+    public void setState(State state) {
         this.state = state;
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.myorg.organisation.domain;
 
 
@@ -19,8 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +25,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "state")
-public class StateStructure implements Serializable {
+public class State implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,14 +50,14 @@ public class StateStructure implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Country country;
 
-    public StateStructure() {
+    public State() {
     }
 
-    public StateStructure(Integer id) {
+    public State(Integer id) {
         this.id = id;
     }
 
-    public StateStructure(Integer id, String name, String code) {
+    public State(Integer id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -111,10 +104,10 @@ public class StateStructure implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof StateStructure)) {
+        if (!(object instanceof State)) {
             return false;
         }
-        StateStructure other = (StateStructure) object;
+        State other = (State) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

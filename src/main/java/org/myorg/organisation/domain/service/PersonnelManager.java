@@ -58,6 +58,23 @@ public class PersonnelManager {
     }
 
     /**
+     * Find the personnel by its generic Personnel and city  and returns a reference to it.
+     *
+     * @param personnelParams the  Personnel parameters to search for
+     * @return the personnel
+     */
+    public Personnel findByUniqueFields(Personnel personnelParams) {
+        logger.info("Find personnel with params {}.", personnelParams);
+        TypedQuery<Personnel> query = entityManager.createNamedQuery(Personnel.FIND_BY_EMAIL, Personnel.class)
+                .setParameter("email", Objects.requireNonNull(personnelParams.getEmail()).toUpperCase());
+        try {
+           return query.getSingleResult(); 
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    /**
      * Creates a new personnel in the personnelManager.
      *
      * @param personnel a personnel to create

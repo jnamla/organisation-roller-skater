@@ -47,7 +47,7 @@ public class AreaManager {
     }
 
     /**
-     * Find the area by its idArea and return a reference to it.
+     * Find the area by its idArea and returns a reference to it.
      *
      * @param idArea the idArea
      * @return the area
@@ -56,12 +56,31 @@ public class AreaManager {
         logger.info("Find area with idArea {}.", idArea);
         return entityManager.find(Area.class, Objects.requireNonNull(idArea));
     }
-
+    
+    /**
+     * Find the area by its genericArea and city  and returns a reference to it.
+     *
+     * @param areaParams the Area parameters to search for
+     * @return the area
+     */
+    public Area findByUniqueFields(Area areaParams) {
+        logger.info("Find area with params {}.", areaParams);
+        TypedQuery<Area> query = entityManager.createNamedQuery(Area.FIND_BY_CITY_AND_GENERIC_AREA, Area.class)
+                .setParameter("idCity", Objects.requireNonNull(areaParams.getCity().getId()))
+                .setParameter("idGenericArea", Objects.requireNonNull(areaParams.getGenericArea().getId()));
+        try {
+           return query.getSingleResult(); 
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
     /**
      * Creates a new area in the areaManager.
      *
      * @param area a area to create
      */
+    @Transactional(Transactional.TxType.REQUIRED)
     public void create(Area area) {
         Objects.requireNonNull(area);
         logger.info("Creating {}.", area);

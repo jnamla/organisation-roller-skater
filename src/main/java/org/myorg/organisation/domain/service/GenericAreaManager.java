@@ -63,6 +63,22 @@ public class GenericAreaManager {
     }
 
     /**
+     * Find the area by its genericArea and city  and returns a reference to it.
+     *
+     * @param genericAreaParams the genericArea parameters to search for
+     * @return the genericArea
+     */
+    public GenericArea findByUniqueFields(GenericArea genericAreaParams) {
+        logger.info("Find area with params {}.", genericAreaParams);
+         TypedQuery<GenericArea> query = entityManager.createNamedQuery(GenericArea.FIND_BY_NAME, GenericArea.class)
+                .setParameter("name", Objects.requireNonNull(genericAreaParams.getName()).toUpperCase());
+        try {
+           return query.getSingleResult(); 
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    /**
      * Creates a new genericArea in the genericAreaManager.
      *
      * @param genericArea a genericArea to create
