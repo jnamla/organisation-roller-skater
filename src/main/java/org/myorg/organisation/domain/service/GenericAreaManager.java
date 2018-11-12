@@ -48,6 +48,8 @@ public class GenericAreaManager {
     public Collection<GenericArea> findAll() {
         logger.info("Find all genericAreas.");
         TypedQuery<GenericArea> findAll = entityManager.createNamedQuery(GenericArea.FIND_ALL, GenericArea.class);
+        Collection<GenericArea> results = Collections.unmodifiableCollection(findAll.getResultList());
+        PersistenceChecks.checkNotFoundStatus(results, GenericArea.class);
         return Collections.unmodifiableCollection(findAll.getResultList());
     }
 
@@ -59,7 +61,9 @@ public class GenericAreaManager {
      */
     public GenericArea findByIdGenericArea(Integer idGenericArea) {
         logger.info("Find genericArea with idGenericArea {}.", idGenericArea);
-        return entityManager.getReference(GenericArea.class, Objects.requireNonNull(idGenericArea));
+        GenericArea result = entityManager.find(GenericArea.class, Objects.requireNonNull(idGenericArea));
+        PersistenceChecks.checkNotFoundStatus(result, GenericArea.class);
+        return result;
     }
 
     /**

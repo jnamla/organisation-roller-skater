@@ -43,7 +43,9 @@ public class AreaManager {
     public Collection<Area> findAll() {
         logger.info("Find all areas.");
         TypedQuery<Area> findAll = entityManager.createNamedQuery(Area.FIND_ALL, Area.class);
-        return Collections.unmodifiableCollection(findAll.getResultList());
+        Collection<Area> results = Collections.unmodifiableCollection(findAll.getResultList());
+        PersistenceChecks.checkNotFoundStatus(results, Area.class);
+        return results;
     }
 
     /**
@@ -54,7 +56,9 @@ public class AreaManager {
      */
     public Area findByIdArea(Integer idArea) {
         logger.info("Find area with idArea {}.", idArea);
-        return entityManager.find(Area.class, Objects.requireNonNull(idArea));
+        Area result = entityManager.find(Area.class, Objects.requireNonNull(idArea));
+        PersistenceChecks.checkNotFoundStatus(result, Area.class);
+        return result;
     }
     
     /**

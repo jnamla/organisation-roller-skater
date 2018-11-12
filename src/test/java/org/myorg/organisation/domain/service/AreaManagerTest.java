@@ -100,7 +100,7 @@ public class AreaManagerTest {
     @Test
     public void delete() {
         Area toDeleteJson, toDelete, deleted;
-        toDeleteJson = Transformer.jsonToObjetFromInputStream(getClass().getResourceAsStream("/data/area/json/entity_create.json"), Area.class);
+        toDeleteJson = Transformer.jsonToObjetFromInputStream(getClass().getResourceAsStream("/data/area/json/entity_delete.json"), Area.class);
         toDelete = areaManager.findByUniqueFields(toDeleteJson);
         entityManager.getTransaction().begin();
         areaManager.delete(toDelete.getId());

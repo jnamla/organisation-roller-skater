@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Area REST resource implementation.
@@ -48,14 +50,22 @@ public class AreaResource {
     @Path("/{id}")
     public Response update(@PathParam("id") Integer id, Area area) {
         areaManager.update(id, area);
-        return Response.ok().build();
+        Map<String, String> response = new HashMap<>();
+            response.put("Code", "PERSISTENCE-GENERAL");
+            response.put("Type", "DATABASE");
+            response.put("Message", "Area successfully updated");
+        return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Integer id) {
         areaManager.delete(id);
-        return Response.ok().build();
+        Map<String, String> response = new HashMap<>();
+            response.put("Code", "PERSISTENCE-GENERAL");
+            response.put("Type", "DATABASE");
+            response.put("Message", "Area successfully deleted");
+        return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
     }
 
 }

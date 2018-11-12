@@ -43,6 +43,8 @@ public class PersonnelManager {
     public Collection<Personnel> findAll() {
         logger.info("Find all personnel.");
         TypedQuery<Personnel> findAll = entityManager.createNamedQuery(Personnel.FIND_ALL, Personnel.class);
+        Collection<Personnel> results = Collections.unmodifiableCollection(findAll.getResultList());
+        PersistenceChecks.checkNotFoundStatus(results, Personnel.class);
         return Collections.unmodifiableCollection(findAll.getResultList());
     }
 
@@ -54,7 +56,9 @@ public class PersonnelManager {
      */
     public Personnel findByIdPersonnel(Integer idPersonnel) {
         logger.info("Find personnel with idPersonnel {}.", idPersonnel);
-        return entityManager.find(Personnel.class, Objects.requireNonNull(idPersonnel));
+        Personnel result = entityManager.find(Personnel.class, Objects.requireNonNull(idPersonnel));
+        PersistenceChecks.checkNotFoundStatus(result, Personnel.class);
+        return result;
     }
 
     /**

@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Personnel REST resource implementation.
@@ -48,13 +50,21 @@ public class PersonnelResource {
     @Path("/{id}")
     public Response update(@PathParam("id") Integer id, Personnel personnel) {
         personnelManager.update(id, personnel);
-        return Response.ok().build();
+        Map<String, String> response = new HashMap<>();
+            response.put("Code", "PERSISTENCE-GENERAL");
+            response.put("Type", "DATABASE");
+            response.put("Message", "Personnel successfully updated");
+        return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Integer id) {
         personnelManager.delete(id);
-        return Response.ok().build();
+        Map<String, String> response = new HashMap<>();
+            response.put("Code", "PERSISTENCE-GENERAL");
+            response.put("Type", "DATABASE");
+            response.put("Message", "Personnel successfully deleted");
+        return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
     }
 }
