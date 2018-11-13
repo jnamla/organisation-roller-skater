@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,12 +32,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "fixed_asset")
+
 @NamedQueries({
     @NamedQuery(name = FixedAsset.FIND_ALL , query = "SELECT f FROM FixedAsset f"),
     @NamedQuery(name = FixedAsset.FIND_BY_TYPE, query = "SELECT f FROM FixedAsset f WHERE f.assetType.id = :id"),
     @NamedQuery(name = FixedAsset.FIND_BY_PURCHASE_DATE , query = "SELECT f FROM FixedAsset f WHERE f.purchaseDate = :date"),
     @NamedQuery(name = FixedAsset.FIND_BY_SERIAL_NUMBER, query = "SELECT f FROM FixedAsset f WHERE f.serialNumber like :number"),
-    @NamedQuery(name = FixedAsset.FIND_BY_UNIQUE_FIELDS, query = "SELECT f FROM FixedAsset f WHERE f.serialNumber = :serialNumber or f.internalStockNumber = :internalStockNumber")})
+    @NamedQuery(name = FixedAsset.FIND_BY_UNIQUE_FIELDS, query = "SELECT f FROM FixedAsset f WHERE f.serialNumber = :serialNumber or f.internalStockNumber = :internalStockNumber"),
+    @NamedQuery(name = FixedAsset.FIND_AREAS, query = "SELECT f.area FROM FixedAsset f WHERE f.area.id IS NOT NULL"),
+    @NamedQuery(name = FixedAsset.FIND_PERSONNEL, query = "SELECT f.personnel FROM FixedAsset f WHERE f.personnel.id IS NOT NULL")})
 public class FixedAsset implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +49,8 @@ public class FixedAsset implements Serializable {
     public static final String FIND_BY_PURCHASE_DATE = "FixedAsset.findByPurchase";
     public static final String FIND_BY_SERIAL_NUMBER = "FixedAsset.findBySerialNumber";
     public static final String FIND_BY_UNIQUE_FIELDS = "FixedAsset.findByUniqueFields";
+    public static final String FIND_AREAS = "FixedAsset.findAreas";
+    public static final String FIND_PERSONNEL = "FixedAsset.findPersonnel";
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -280,6 +286,7 @@ public class FixedAsset implements Serializable {
         this.personnel = personnel;
     }
     
+    @Transient
     public boolean isOutOfStockDateValid () {
         if (Objects.nonNull(this.outOfStockDate)){
             return this.purchaseDate.isBefore(this.outOfStockDate);

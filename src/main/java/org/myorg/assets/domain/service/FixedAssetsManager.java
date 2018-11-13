@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.myorg.assets.domain.FixedAsset;
+import org.myorg.organisation.domain.Area;
+import org.myorg.organisation.domain.Personnel;
 import org.myorg.utils.data.checks.PersistenceChecks;
 import org.slf4j.Logger;
 
@@ -47,6 +49,32 @@ public class FixedAssetsManager {
         TypedQuery<FixedAsset> findAll = entityManager.createNamedQuery(FixedAsset.FIND_ALL, FixedAsset.class);
         Collection<FixedAsset> results = Collections.unmodifiableCollection(findAll.getResultList());
         PersistenceChecks.checkNotFoundStatus(results, FixedAsset.class);
+        return results;
+    }
+    
+    /**
+     * Returns the list of all fixedAssets registered in the company.
+     *
+     * @return a collection of fixedAssets
+     */
+    public Collection<Area> findAllAreas() {
+        logger.info("Find all areas that have fixed assets assigned.");
+        TypedQuery<Area> findAll = entityManager.createNamedQuery(FixedAsset.FIND_AREAS, Area.class);
+        Collection<Area> results = Collections.unmodifiableCollection(findAll.getResultList());
+        PersistenceChecks.checkNotFoundStatus(results, Area.class);
+        return results;
+    }
+    
+    /**
+     * Returns the list of all fixedAssets registered in the company.
+     *
+     * @return a collection of fixedAssets
+     */
+    public Collection<Personnel> findAllPersonnel() {
+        logger.info("Find all areas who have fixed assets assigned.");
+        TypedQuery<Personnel> findAll = entityManager.createNamedQuery(FixedAsset.FIND_PERSONNEL, Personnel.class);
+        Collection<Personnel> results = Collections.unmodifiableCollection(findAll.getResultList());
+        PersistenceChecks.checkNotFoundStatus(results, Personnel.class);
         return results;
     }
 
@@ -153,8 +181,8 @@ public class FixedAssetsManager {
         PersistenceChecks.isIdConsistentForUpdate(Objects.equals(idFixedAsset, fixedAsset.getId()), FixedAsset.class);
         FixedAsset currentFixedAsset = entityManager.getReference(FixedAsset.class, Objects.requireNonNull(idFixedAsset));
         PersistenceChecks.checkNotFoundStatus(currentFixedAsset, FixedAsset.class);
-        PersistenceChecks.isValidCheck(currentFixedAsset.isOutOfStockDateValid(), "Out of Stock date is not valid.");
-        entityManager.persist(currentFixedAsset);
+        PersistenceChecks.isValidCheck(fixedAsset.isOutOfStockDateValid(), "Out of Stock date is not valid.");
+        entityManager.merge(fixedAsset);
     }
 
     /**

@@ -16,6 +16,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -35,6 +37,9 @@ public class FixedAssetsResource {
     
     @Inject
     private FixedAssetsManager fixedAssetsHolder;
+    
+    @Context
+    private ResourceContext context;
     
     @GET
     @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
@@ -65,6 +70,18 @@ public class FixedAssetsResource {
     public Response getBySerialNumber(@PathParam("serialNumber") String serialNumber) {
         Collection<FixedAsset> assets = fixedAssetsHolder.findBySerialNumber(serialNumber);
         return Response.ok(assets).build();
+    }
+    
+    @Path("/areas")
+    public FixedAssetsAreasResource getAreas() {
+        FixedAssetsAreasResource fixedAssetsAreasResource = context.getResource(FixedAssetsAreasResource.class);
+        return fixedAssetsAreasResource;
+    }
+    
+    @Path("/personnel")
+    public FixedAssetsPersonnelResource getPersonnel() {
+        FixedAssetsPersonnelResource fixedAssetsPersonnelResource = context.getResource(FixedAssetsPersonnelResource.class);
+        return fixedAssetsPersonnelResource;
     }
     
     @POST
