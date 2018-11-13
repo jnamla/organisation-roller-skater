@@ -16,19 +16,19 @@ public class PersistenceChecks {
     
     public static <T> void checkNotFoundStatus (T result, Class<T> resource){
         if (Objects.isNull(result)) {
-            throw new EntityNotFoundException(resource + ": Could not find any.");
+            throw new EntityNotFoundException(resource.getTypeName() + ": Could not find any.");
         }
     }
     
     public static <T> void checkNotFoundStatus(Collection<T> result, Class<T> resource){
         if (result.isEmpty()) {
-            throw new EntityNotFoundException(resource + ": Could not find any.");
+            throw new EntityNotFoundException(resource.getTypeName() + ": Could not find any.");
         }
     }
     
     public static <T> void isIdConsistentForUpdate(boolean consistent, Class<T> resource){
         if (!consistent) {
-            throw new BadRequestException(resource + ": Identifiers are inconsistent. Can't update.");
+            throw new BadRequestException(resource.getTypeName() + ": Identifiers are inconsistent. Can't update.");
         }
     }
     
