@@ -1,0 +1,24 @@
+{
+    "assetLength": 15,
+    "assetType": {
+        "code": "MACH",
+        "id": 2,
+        "name": "Maquinaria"
+    },
+    "color": "Negro",
+    "description": "Computador portatil",
+    "height": 2,
+    "internalStockNumber": 2,
+    "name": "TOSHIBA XA245323431",
+    "purchaseDate": "02-04-2050",
+    "purchaseValue": 2600000,
+    "serialNumber": "XA245334231",
+    "status": {
+        "code": "ASIG",
+        "description": "Activo asignado",
+        "id": 5,
+        "name": "Asignado"
+    },
+    "weight": 2003,
+    "width": 20
+}

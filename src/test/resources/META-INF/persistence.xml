@@ -10,9 +10,9 @@
     <class>org.myorg.organisation.domain.Country</class>
     <class>org.myorg.organisation.domain.Personnel</class>
     
-    <class>org.myorg.organisation.domain.service.PersonnelManager</class>
-    <class>org.myorg.organisation.domain.service.AreaManager</class>
-    <class>org.myorg.organisation.domain.service.GenericAreaManager</class>
+    <class>org.myorg.assets.domain.FixedAsset</class>
+    <class>org.myorg.assets.domain.AssetType</class>
+    <class>org.myorg.assets.domain.AssetStatus</class>
     
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
